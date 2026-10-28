@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess</title>
+    <link rel = "stylesheet" href="style/style.css">
+    <link rel="icon" href="images/logo.webp">
+</head>
+<body>
+<h2 id = "turn">White's Turn</h2>
+<div class="main">
+<div id="invalid_popup">Invalid move!</div>
+<div id="promotion" class="promote">
+    <div class="promote-content">
+      <p id="promoteTag">What do you want to promote to?</p>
+      <img id = "rook" class = "promote_pieces black" src = "images/chess-36314_1280.png" draggable="false" onClick ="new Pawn().Promote('rook')"></img>
+      <img id = "knight" class = "promote_pieces black" src = "images/knight-147065_1280.png" draggable="false" onClick ="new Pawn().Promote('knight')"></img>
+      <img id = "bishop" class = "promote_pieces black" src = "images/bishop-147064_1280.png" draggable="false" onClick ="new Pawn().Promote('bishop')"></img>
+      <img id = "queen" class = "promote_pieces black" src = "images/queen-147062_1280.png" draggable="false" onClick ="new Pawn().Promote('queen')"></img>
+    </div>
+  </div>
+  <div id ="timerpopup">
+<div class="timer"id="timer_white">10:00</div>
+<div class="timer"id="timer_black">10:00</div>   
+</div>
+<div id="playerspopup">
+<div class="players" id="white_player">White<span id="whitematerial" class="material"></span></div><div id="versus">vs</div><div class="players" id="black_player">Black<span id="blackmaterial" class="material"></span></div><i class="fa-solid fa-repeat board-flip-button" aria-hidden="true" onclick="board.flip()"></i>
+</div>
+<div class="waitwrapper">
+    <div class="waitpopup">
+        <div class="waitplayers">
+            <div class="you user">
+                <div class="avatar"><img src="../games/images/default-photoprofile.png" alt="profile image"></div>
+                <div class="name">You</div>
+            </div>
+            <div class="spinner"></div>
+            <div class="opponent user">
+                <div class="avatar"><img src="../games/images/default-photoprofile.png" alt="profile image"></div>
+                <div class="name">Opponent</div>
+            </div>
+        </div>
+        <h2 class="title">Waiting for opponent...</h2>
+        <p class="message">The game will start after an opponent joins. If you dont want to play you can cancel the game.</p>
+        <div class="details">
+            <span id="minutes">◷  10 min</span> <span class="divider"></span> <span id="rated">⚡ Rated</span>
+        </div>
+        <button type="button" id="cancelbtn">Cancel</button>
+    </div>
+</div>
+<div class="wrapper" id="chess_board_wrapper">
+<svg id="chessboard" width="0" height="0" viewBox="0 0 496 496" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <marker id="arrow-orange" markerWidth="62" markerHeight="43" refX="24" refY="21" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L38,21 L0,43 Z" fill="#ffa500"/>
+        </marker>
+        <marker id="arrow-green" markerWidth="62" markerHeight="43" refX="24" refY="21" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L38,21 L0,43 Z" fill="#22c55e"/>
+        </marker>
+        <marker id="arrow-red" markerWidth="62" markerHeight="43" refX="24" refY="21" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L38,21 L0,43 Z" fill="#ef4444"/>
+        </marker>
+        <marker id="arrow-yellow" markerWidth="62" markerHeight="43" refX="24" refY="21" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L38,21 L0,43 Z" fill="#facc15"/>
+        </marker>
+    </defs>
+    <g id="arrows"></g>
+</svg>
+<div id = "chess_board" class = "board">
+    <div class="cors" id="alfabet_cors">
+        <div class="alfabet_cor">a</div>
+        <div class="alfabet_cor">b</div>
+        <div class="alfabet_cor">c</div>
+        <div class="alfabet_cor">d</div>
+        <div class="alfabet_cor">e</div>
+        <div class="alfabet_cor">f</div>
+        <div class="alfabet_cor">g</div>
+        <div class="alfabet_cor">h</div>
+        </div>
+        <div class="cors" id="numbers_cors">
+        <div class="number_cor">1</div>
+        <div class="number_cor">2</div>
+        <div class="number_cor">3</div>
+        <div class="number_cor">4</div>
+        <div class="number_cor">5</div>
+        <div class="number_cor">6</div>
+        <div class="number_cor">7</div>
+        <div class="number_cor" id="cor8">8</div>
+        </div>
+<!--column 8-->
+<div id = "column8" class = "column">
+<div class = "square" id = "a8"><img id = "rook_1b" class = "pieces black" src = "images/chess-36314_1280.png" draggable="false"></img></div>
+<div class = "square"  id = "a7"><img id = "pawn_1b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+<div class = "square"  id = "a6"></div>
+<div class = "square"  id = "a5"></div>
+<div class = "square"  id = "a4"></div>
+<div class = "square"  id = "a3"></div>
+<div class = "square"  id = "a2"><img id = "pawn_1w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+<div class = "square"  id = "a1"><img id = "rook_1w"class = "pieces white" src = "images/white-rook.jpg" draggable="false"></img></div>
+</div> 
+<!--column 7-->  
+<div id = "column7" class = "column">
+    <div class = "square"  id = "b8"><img id = "knight_1b" class = "pieces black" src = "images/knight-147065_1280.png" draggable="false"></img></div>
+    <div class = "square"  id = "b7"><img id = "pawn_2b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square"  id = "b6"></div>
+    <div class = "square"  id = "b5"></div>
+    <div class = "square"  id = "b4"></div>
+    <div class = "square"  id = "b3"></div>
+    <div class = "square"  id = "b2"><img id = "pawn_2w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square"  id = "b1"><img id = "knight_1w" class = "pieces white" src = "images/white-knight.jpg" draggable="false"></img></div>
+</div> 
+<!--column 6--> 
+<div id = "column6" class = "column">
+    <div class = "square" id = "c8"><img id = "bishop_1b" class = "pieces black" src = "images/bishop-147064_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "c7"><img id = "pawn_3b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "c6"></div>
+    <div class = "square" id = "c5"></div>
+    <div class = "square" id = "c4"></div>
+    <div class = "square" id = "c3"></div>
+    <div class = "square" id = "c2"><img id = "pawn_3w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "c1"><img id = "bishop_1w" class = "pieces white" src = "images/white-bishop.jpg" draggable="false"></img></div>
+</div> 
+<!--column 5--> 
+<div id = "column5" class = "column">
+    <div class = "square" id = "d8"><img id = "queen_b" class = "pieces black" src = "images/queen-147062_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "d7"><img id = "pawn_4b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "d6"></div>
+    <div class = "square" id = "d5"></div>
+    <div class = "square" id = "d4"></div>
+    <div class = "square" id = "d3"></div>
+    <div class = "square" id = "d2"><img  id = "pawn_4w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "d1"><img id = "queen_w" class = "pieces white" src = "images/white-queen.jpg" draggable="false"></img></div>
+</div> 
+<!--column 4--> 
+<div id = "column4" class = "column">
+    <div class = "square" id = "e8"><img id = "king_b" class = "pieces black" src = "images/chess-36308_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "e7"><img id = "pawn_5b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "e6"></div>
+    <div class = "square" id = "e5"></div>
+    <div class = "square" id = "e4"></div>
+    <div class = "square" id = "e3"></div>
+    <div class = "square" id = "e2"><img id = "pawn_5w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "e1"><img id = "king_w" class = "pieces white" src = "images/white-king.jpg" draggable="false"></img></div>
+</div>  
+<!--column 3-->
+<div id = "column3" class = "column">
+    <div class = "square" id = "f8"><img id = "bishop_2b" class = "pieces black" src = "images/bishop-147064_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "f7"><img id = "pawn_6b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "f6"></div>
+    <div class = "square" id = "f5"></div>
+    <div class = "square" id = "f4"></div>
+    <div class = "square" id = "f3"></div>
+    <div class = "square" id = "f2"><img id = "pawn_6w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "f1"><img id = "bishop_2w"class = "pieces white" src = "images/white-bishop.jpg" draggable="false"></img></div>
+</div>
+<!--column 2--> 
+<div id = "column2" class = "column">
+    <div class = "square" id = "g8"><img id = "knight_2b" class = "pieces black" src = "images/knight-147065_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "g7"><img  id = "pawn_7b"class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "g6"></div>
+    <div class = "square" id = "g5"></div>
+    <div class = "square" id = "g4"></div>
+    <div class = "square" id = "g3"></div>
+    <div class = "square" id = "g2"><img id = "pawn_7w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "g1"><img id = "knight_2w" class = "pieces white" src = "images/white-knight.jpg" draggable="false"></img></div>
+</div>
+<!--column 1-->
+<div id = "column1" class = "column">
+    <div class = "square" id = "h8"><img id = "rook_2b" class = "pieces black" src = "images/chess-36314_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "h7"><img id = "pawn_8b" class = "pieces black" src = "images/chess-151546_1280.png" draggable="false"></img></div>
+    <div class = "square" id = "h6"></div>
+    <div class = "square" id = "h5"></div>
+    <div class = "square" id = "h4"></div>
+    <div class = "square" id = "h3"></div>
+    <div class = "square" id = "h2"><img id = "pawn_8w" class = "pieces white" src = "images/white-pawn.jpg" draggable="false"></img></div>
+    <div class = "square" id = "h1"><img id = "rook_2w" class = "pieces white" src = "images/white-rook.jpg" draggable="false"></img></div> 
+</div>
+<div class="cors" id="alfabet_cors_for_black">
+    <div class="alfabet_cor">a</div>
+    <div class="alfabet_cor">b</div>
+    <div class="alfabet_cor">c</div>
+    <div class="alfabet_cor">d</div>
+    <div class="alfabet_cor">e</div>
+    <div class="alfabet_cor">f</div>
+    <div class="alfabet_cor">g</div>
+    <div class="alfabet_cor">h</div>
+    </div>
+    <div class="cors" id="numbers_cors_for_black">
+    <div class="number_cor">1</div>
+    <div class="number_cor">2</div>
+    <div class="number_cor">3</div>
+    <div class="number_cor">4</div>
+    <div class="number_cor">5</div>
+    <div class="number_cor">6</div>
+    <div class="number_cor">7</div>
+    <div class="number_cor" id="cor8_black">8</div>
+    </div>
+</div>
+</div>
+  <div class="details-popup" id="details">
+    <div class="settings">
+    <div class="popcolumn" id="columns2"><i class="fas fa-volume-off" onclick="game.changeSoundAllowed()" id="volume" title="Sound"></i><i title="Copy Fen" onclick="board.copyFen()">FEN</i><i class="fa-solid fa-download" title="Download Game" onclick = "new Player().downloadGame()"></i></div>
+    <hr class="up">
+    </div>
+    <div class="lastmoves">
+        <div id="move1" class ="moves"><span style="left: 25px !important;">1.</span><span class="whiteMove" style="color: white;"></span><span class="blackMove" style="color: white;"></span></div>
+    </div>
+    <hr class="hrdown">
+    <div class="gameEnding">
+        <div class="popcolumn" id="columns1">
+        <i class="fa-solid fa-thumbs-up drawbtn" id="draw_white" title="Offer Draw"></i>
+        <i class="fa-solid fa-flag" id="resign_btn" aria-hidden="true" title="Resign"></i>
+        <i class="fa-solid fa-thumbs-up drawbtn" id="draw_black" title="Offer Draw" style ="color:black;"></i>
+    </div>
+    </div>
+  </div>
+  <div id="startGame" onclick="new Player().StartGame()">Start</div>
+  <div id="resultpopup">
+    <div id="movebtn"><i class="fas fa-ellipsis-h"></i></div>
+    <p id="winner">White Won!</p>  
+    <p id="finalresult">by Checkmate</p> 
+    <img src="images/achievement-1293132_1280.webp" id="trophy" draggable="false" alt="trophy">
+    <button id="btn" onClick= "new Player().play_again()">Play again</button>
+   </div>
+</div>
+<script src="https://kit.fontawesome.com/76c3367925.js" crossorigin="anonymous"></script>
+<script src="script/DragNDrop.js"></script>
+<script src="script/app.js"></script>
+<script src ="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+<script src="../login/script/firebase_connection.js"></script>
+<script src="script/draggablePopup.js"></script>
+<script>
+firebase.auth().onAuthStateChanged((user) =>{
+if(user){
+    console.log(user)
+    let id = decodeURIComponent(window.location.search)
+    id = id.substring(4);
+    let game = firebase.database().ref(`Games/${id}`)
+    game.on('value',snapshot =>{
+        var data = snapshot.val();
+        let details = Object.values(data)[0]
+        if(details.player2){
+            var white_player = document.getElementById("white_player")
+            var black_player = document.getElementById("black_player")
+            white_player.innerText = details.player1.name
+            black_player.innerText = details.player2.name
+        }
+    })
+}
+})
+</script>
+</body>
+</html>
